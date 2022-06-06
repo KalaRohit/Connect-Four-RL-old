@@ -68,7 +68,7 @@ class Board:
                 successorTwo = self.currentBoard[i+2][j+2]
                 successorThree = self.currentBoard[i+3][j+3]
 
-                if origin != 0 origin == successorOne and origin == successorTwo and origin == successorThree:
+                if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
                     return True
         return False    
 
@@ -80,7 +80,7 @@ class Board:
                 successorTwo = self.currentBoard[i][j+2]
                 successorThree = self.currentBoard[i][j+3]
 
-                if origin != 0 origin == successorOne and origin == successorTwo and origin == successorThree:
+                if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
                     return True
         
         return False
@@ -93,7 +93,7 @@ class Board:
                 successorTwo = self.currentBoard[i+2][j]
                 successorThree = self.currentBoard[i+3][j]
 
-                if origin != 0 origin == successorOne and origin == successorTwo and origin == successorThree:
+                if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
                     return True
         return False
 
@@ -105,9 +105,10 @@ class Board:
     def evaluateWindow(window):
         origin = window[0]
         for element in window:
+            pass
 
     
-    def evaluateReward(board: Board) -> int:
+    def evaluateReward(board) -> int:
         if board.checkWinner():
             return 100
         

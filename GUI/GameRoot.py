@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 
 from Algorithms.Environment import Board
+from GUI.MainMenu import MainMenu
 
 
 class ConnectFour(Tk):
@@ -12,6 +13,9 @@ class ConnectFour(Tk):
         self.title('Connect Four')
         self.resizable(False, False)
         self.exitMainLoop = False
+        
+        self.Menu = MainMenu()
+
 
         #The game initially starts with a main menu, not a canvas, thus this is initially none.
         self.currentCanvas = None   
