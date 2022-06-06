@@ -43,8 +43,8 @@ class Board:
         for row_no in range(self.NUMBER_ROWS):
             if self.currentBoard[row_no][column] == self.BLANK:
                 previousStringifiedBoard = self.stringifyBoard(self.currentBoard)
-                previousBoards.append(previousStringifiedBoard)
-                currentBoard[row_no][column] = color
+                self.previousBoards.append(previousStringifiedBoard)
+                self.currentBoard[row_no][column] = color
                 return True
         return False
 
@@ -102,15 +102,75 @@ class Board:
             return True
         return False
 
-    def evaluateWindow(window):
+    def evaluateWindow(self, window, piece):
         origin = window[0]
-        for element in window:
-            pass
+        windowScore = 0
+
+        opponentPiece = 2 if piece == 1 else 1
+
+        if window.count(piece) == 4:
+            windowScore += 100
+        elif window.count(piece) == 3 and window.count(self.BLANK) == 1:
+            windowScore += 5
+        elif window.count(piece) == 2 and window.count(self.BLANK) == 2:
+            windowScore += 1
+        if window.count(opponentPiece) == 3 and window.count(0) == 1:
+            window_score -= 5
+        elif window.count(opponentPiece) == 4:
+            window_score -= 10000
+        
+        return windowScore
+
 
     
-    def evaluateReward(board) -> int:
-        if board.checkWinner():
-            return 100
+    def evaluateReward(self, board, piece) -> int:
+        reward = 0
+
+        #horizontal windows
+        for i in range(self.NUMBER_ROWS):
+            for j in range(self.NUMBER_COLS - 3):
+                origin = board[i][j]
+                successorOne = board[i][j+1]
+                successorTwo = board[i][j+2]
+                successorThree = board[i][j+3]
+
+                window = [origin, successorOne, successorTwo, successorThree]
+                reward += self.evaluateWindow(self, window, piece)
+
+        #vertical windows
+        for i in range(self.NUMBER_ROWS - 3):
+            for j in range(self.NUMBER_COLS):
+                origin = self.currentBoard[i][j]
+                successorOne = self.currentBoard[i+1][j]
+                successorTwo = self.currentBoard[i+2][j]
+                successorThree = self.currentBoard[i+3][j]
+
+                window = [origin, successorOne, successorTwo, successorThree]
+                reward += self.evaluateWindow(self, window, piece)
+
+        #left diagonal windows
+        for i in range(self.NUMBER_ROWS - 3):
+            for j in range(self.NUMBER_COLS - 3):
+                origin = self.currentBoard[i][j]
+                successorOne = self.currentBoard[i+1][j+1]
+                successorTwo = self.currentBoard[i+2][j+2]
+                successorThree = self.currentBoard[i+3][j+3]
+
+                window = [origin, successorOne, successorTwo, successorThree]
+                reward += self.evaluateWindow(self, window, piece)
+        #right diagonal windows
+        for i in range(self.NUMBER_ROWS - 3):
+            for j in range(self.NUMBER_COLS - 3):
+                origin = self.currentBoard[i][j]
+                successorOne = self.currentBoard[i+1][j+1]
+                successorTwo = self.currentBoard[i+2][j+2]
+                successorThree = self.currentBoard[i+3][j+3]
+
+                window = [origin, successorOne, successorTwo, successorThree]
+                reward += self.evaluateWindow(self, window, piece)
+        
+        return reward
+
         
 
 
