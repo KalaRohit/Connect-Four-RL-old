@@ -7,12 +7,9 @@ from Algorithms.BoardJSON import BoardJSON
 def main():
     game = ConnectFour()
     
-    while True:
+    while not game.exitMainLoop:
         game.update_idletasks()
-        game.update()
-
-        if game.exitMainLoop:
-            break  
+        game.update() 
 
 
 if __name__ == '__main__':

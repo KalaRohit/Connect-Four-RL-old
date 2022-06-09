@@ -15,6 +15,7 @@ class Board:
         self.actionSpace = [i for i in range(self.NUMBER_COLS)]
         self.legalActions = [i for i in range(self.NUMBER_COLS)]
         self.movesMade = 0
+        self.boardFilled = False
     
     def stringifyBoard(self, arrayBoard):
         stringifiedBoard = ""
@@ -45,6 +46,8 @@ class Board:
                 previousStringifiedBoard = self.stringifyBoard(self.currentBoard)
                 self.previousBoards.append(previousStringifiedBoard)
                 self.currentBoard[row_no][column] = color
+                self.previousMoves.append(column)
+                self.movesMade += 1
                 return True
         return False
 
@@ -101,6 +104,15 @@ class Board:
         if self.checkHorizontal or self.checkVertical or self.checkLeftDiagonal or self.checkRightDiagonal:
             return True
         return False
+    
+    def boardIsFilled(self):
+        for i in range(self.NUMBER_ROWS):
+            for j in range(self.NUMBER_COLS):
+                if self.currentBoard[i][j] == self.BLANK:
+                    return False
+        self.boardFilled = True
+        return True
+                
 
     def evaluateWindow(self, window, piece):
         origin = window[0]
@@ -123,7 +135,7 @@ class Board:
 
 
     
-    def evaluateReward(self, board, piece) -> int:
+    def evaluateReward(self, board, piece):
         reward = 0
 
         #horizontal windows
@@ -170,21 +182,3 @@ class Board:
                 reward += self.evaluateWindow(self, window, piece)
         
         return reward
-
-        
-
-
-
-    
-
-    
-    
-
-    
-
-    
-
-
-
-        
-

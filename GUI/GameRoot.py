@@ -3,6 +3,7 @@ from tkinter import messagebox
 
 from Algorithms.Environment import Board
 from GUI.MainMenu import MainMenu
+from GUI.GameCanvas import GameCanvas
 
 
 class ConnectFour(Tk):
@@ -13,15 +14,17 @@ class ConnectFour(Tk):
         self.title('Connect Four')
         self.resizable(False, False)
         self.exitMainLoop = False
+        self.protocol("WM_DELETE_WINDOW", self.onClosing)
+
+        self.MainWindow = MainMenu(self)
+
         
-        self.Menu = MainMenu()
-
-
-        #The game initially starts with a main menu, not a canvas, thus this is initially none.
-        self.currentCanvas = None   
-
-        self.Board = Board()
         #self.yellowAgent = ...
         #self.redAgent = ...
 
+    def createCanvas(self, canvasType):
+        self.MainWindow.destroy()
+        self.MainWindow = GameCanvas(self)
 
+    def onClosing(self):
+        self.exitMainLoop = True
