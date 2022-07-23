@@ -16,6 +16,7 @@ class Board:
         self.legalActions = [i for i in range(self.NUMBER_COLS)]
         self.movesMade = 0
         self.boardFilled = False
+        self.winner = None
     
     def stringifyBoard(self, arrayBoard):
         stringifiedBoard = ""
@@ -60,6 +61,7 @@ class Board:
                 successorThree = self.currentBoard[i+3][j-3]
                     
                 if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
+                    self.winner = origin
                     return True
         return False    
 
@@ -72,6 +74,7 @@ class Board:
                 successorThree = self.currentBoard[i+3][j+3]
 
                 if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
+                    self.winner = origin
                     return True
         return False    
 
@@ -84,6 +87,7 @@ class Board:
                 successorThree = self.currentBoard[i][j+3]
 
                 if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
+                    self.winner = origin
                     return True
         
         return False
@@ -97,11 +101,12 @@ class Board:
                 successorThree = self.currentBoard[i+3][j]
 
                 if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
+                    self.winner = origin
                     return True
         return False
 
     def checkWinner(self):
-        if self.checkHorizontal or self.checkVertical or self.checkLeftDiagonal or self.checkRightDiagonal:
+        if self.checkHorizontal == True or self.checkVertical == True or self.checkLeftDiagonal == True or self.checkRightDiagonal == True:
             return True
         return False
     
@@ -133,7 +138,8 @@ class Board:
         
         return windowScore
 
-
+    def getWinner(self):
+        return self.winner
     
     def evaluateReward(self, board, piece):
         reward = 0

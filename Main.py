@@ -8,6 +8,12 @@ def main():
     game = ConnectFour()
     
     while not game.exitMainLoop:
+        if game.canvasIsMainWindow:
+            gameCanvas = game.MainWindow
+            if gameCanvas.humanTurn:
+                gameCanvas.generateHumanTurn()
+            else:
+                gameCanvas.generateAITurn()
         game.update_idletasks()
         game.update() 
 

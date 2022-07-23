@@ -15,6 +15,7 @@ class ConnectFour(Tk):
         self.resizable(False, False)
         self.exitMainLoop = False
         self.protocol("WM_DELETE_WINDOW", self.onClosing)
+        self.canvasIsMainWindow = False
 
         self.MainWindow = MainMenu(self)
 
@@ -22,9 +23,13 @@ class ConnectFour(Tk):
         #self.yellowAgent = ...
         #self.redAgent = ...
 
-    def createCanvas(self, canvasType):
+    def createCanvas(self, c):
         self.MainWindow.destroy()
         self.MainWindow = GameCanvas(self)
+        self.MainWindow.canvasType = c
+        self.canvasIsMainWindow = True
 
+    def createMainMenu(self):
+        pass
     def onClosing(self):
         self.exitMainLoop = True

@@ -13,8 +13,8 @@ class MainMenu(Frame):
         redButton = Button(self, width= 30, command=self.setUpRedBoard, text='Start a new game as red').pack()
         twoNPC = Button(self, width= 30,command=self.setAIBoard, text='Spectate a game between AI').pack()
         twoPlayer = Button(self, width= 30,text='Local Multiplayer Game', command=self.setUpMPBoard).pack()
-        trainYellow = Button(self, width= 30,text='Train Yellow Agent', command=self.setUpMPBoard).pack()
-        trainRed = Button(self, width= 30,text='Train Red Agent', command=self.setUpMPBoard).pack()
+        trainYellow = Button(self, width= 30,text='Train Yellow Agent', command=self.setUpTrainYellowBoard).pack()
+        trainRed = Button(self, width= 30,text='Train Red Agent', command=self.setUpTrainRedBoard).pack()
     
     def setUpYellowBoard(self):
         self.master.createCanvas(0)
@@ -27,3 +27,9 @@ class MainMenu(Frame):
     
     def setUpMPBoard(self):
         self.master.createCanvas(3)
+    
+    def setUpTrainRedBoard(self):
+        self.master.createCanvas(5)
+
+    def setUpTrainYellowBoard(self):
+        self.master.createCanvas(4)
