@@ -26,7 +26,6 @@ class GameCanvas(Canvas):
     
     def drawBoard(self):
         board = self.Board.currentBoard
-        
         for i in range(len(board)):
             for j in range(len(board[i])):
                 if(board[i][j] == Board.YELLOW): #case where it is yellow
@@ -70,18 +69,14 @@ class GameCanvas(Canvas):
             color = 2
         
         piecePlaced = self.Board.addPiece(columnNo, color)
+        
         #case 0 and 1: piece is placed and now it is AI turn
-        if piecePlaced:
-            self.drawBoard()
+        if piecePlaced == True:
             self.generateEvaluateBoard()
             self.currentTurn = 'Yellow' if self.currentTurn == 'Red' else 'Red'
             if(self.canvasType == 0 or self.canvasType == 1):
                 self.unbind('<ButtonRelease-1>')
                 self.humanTurn = False
-        #case 3: piece is placed in a multiplayer game
-            elif self.canvasType == 3:
-                self.drawBoard()
-                self.generateEvaluateBoard()
 
 
 
@@ -89,11 +84,19 @@ class GameCanvas(Canvas):
         pass
 
     def getEval(self, e):
-        print(self.Board.checkWinner())
+        self.drawBoard()
+        self.master.update_idletasks()
+        #case 1: Show messagebox for draw for games that involve players
         if self.Board.boardIsFilled() and (self.canvasType!= 4 or self.canvasType != 5) and (not self.Board.checkWinner()):
+            self.drawBoard()
             messagebox.showinfo('Draw', 'The game is drawn!')
+            self.master.createMainMenu()
+        #case 2: Show messagebox to indiciate game winner.
         elif self.Board.checkWinner() and (self.canvasType != 4 or self.canvasType != 5):
-            messagebox.showinfo('Winner', f'{self.Board.getWinner()} wins the game!')
+            self.drawBoard()
+            winner = 'Yellow' if self.Board.getWinner() == 1 else 'Red'
+            messagebox.showinfo('Winner', f'{winner} wins the game!')
+            self.master.createMainMenu()
         
 
     def generateHumanTurn(self):
@@ -104,4 +107,5 @@ class GameCanvas(Canvas):
     
     def generateEvaluateBoard(self):
         self.event_generate('<<Eval-Board>>')
+    
     

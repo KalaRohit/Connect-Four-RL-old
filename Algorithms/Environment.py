@@ -15,6 +15,7 @@ class Board:
         self.actionSpace = [i for i in range(self.NUMBER_COLS)]
         self.legalActions = [i for i in range(self.NUMBER_COLS)]
         self.movesMade = 0
+        self.guiCanvasType = None
         self.boardFilled = False
         self.winner = None
     
@@ -53,17 +54,18 @@ class Board:
         return False
 
     def checkLeftDiagonal(self):
-        for i in range(len(self.NUMBER_ROWS)-1, 3, -1):
-            for j in range(len(self.NUMBER_COLS)-1, 3, -1):
+        for i in range(self.NUMBER_ROWS - 3):
+            for j in range(3, self.NUMBER_COLS-1):
+                
                 origin = self.currentBoard[i][j]
                 successorOne = self.currentBoard[i+1][j-1]
                 successorTwo = self.currentBoard[i+2][j-2]
                 successorThree = self.currentBoard[i+3][j-3]
-                    
+
                 if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
                     self.winner = origin
                     return True
-        return False    
+        return False   
 
     def checkRightDiagonal(self):
         for i in range(self.NUMBER_ROWS - 3):
@@ -89,7 +91,6 @@ class Board:
                 if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
                     self.winner = origin
                     return True
-        
         return False
     
     def checkVertical(self):
@@ -106,7 +107,7 @@ class Board:
         return False
 
     def checkWinner(self):
-        if self.checkHorizontal == True or self.checkVertical == True or self.checkLeftDiagonal == True or self.checkRightDiagonal == True:
+        if self.checkHorizontal() == True or self.checkVertical() == True or self.checkLeftDiagonal() == True or self.checkRightDiagonal() == True:
             return True
         return False
     
@@ -188,3 +189,6 @@ class Board:
                 reward += self.evaluateWindow(self, window, piece)
         
         return reward
+
+    def setGUICanvasType(self, x):
+        self.guiCanvasType = x
