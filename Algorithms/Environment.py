@@ -19,17 +19,19 @@ class Board:
         self.boardFilled = False
         self.winner = None
     
-    def stringifyBoard(self, arrayBoard):
+    @staticmethod
+    def stringifyBoard(arrayBoard):
         stringifiedBoard = ""
 
-        for row_no in range(self.NUMBER_ROWS):
-            for col_no in range(self.NUMBER_COLS):
+        for row_no in range(Board.NUMBER_ROWS):
+            for col_no in range(Board.NUMBER_COLS):
                 stringifiedBoard += str(arrayBoard[row_no][col_no])
             stringifiedBoard += " "
-        
+    
         return stringifiedBoard
     
-    def stringToListBoard(self, stringifiedBoard):
+    @staticmethod
+    def stringToListBoard(stringifiedBoard):
         listifiedBoard = []
         rowList = stringifiedBoard.split(' ')
 
@@ -53,10 +55,10 @@ class Board:
                 return True
         return False
 
-    def checkLeftDiagonal(self):
-        for i in range(self.NUMBER_ROWS - 3):
-            for j in range(3, self.NUMBER_COLS-1):
-                
+    def checkLeftDiagonal(self):        # issue => out of bounds will cause performance issues. TODO
+        for i in range(self.NUMBER_ROWS):
+            for j in range(3,self.NUMBER_COLS):
+                print(f'P1: {i,j}, P2: {i+1,j-1}, P3: {i+2, j-2}, P4: {i+3, j-3}' )
                 origin = self.currentBoard[i][j]
                 successorOne = self.currentBoard[i+1][j-1]
                 successorTwo = self.currentBoard[i+2][j-2]
@@ -141,7 +143,8 @@ class Board:
 
     def getWinner(self):
         return self.winner
-    
+        
+    #TODO FIX all of these and use the new checkWinner functions
     def evaluateReward(self, board, piece):
         reward = 0
 
@@ -168,15 +171,17 @@ class Board:
                 reward += self.evaluateWindow(self, window, piece)
 
         #left diagonal windows
-        for i in range(self.NUMBER_ROWS - 3):
-            for j in range(self.NUMBER_COLS - 3):
+        for i in range(self.NUMBER_ROWS):
+            for j in range(3,self.NUMBER_COLS):
                 origin = self.currentBoard[i][j]
-                successorOne = self.currentBoard[i+1][j+1]
-                successorTwo = self.currentBoard[i+2][j+2]
-                successorThree = self.currentBoard[i+3][j+3]
+                successorOne = self.currentBoard[i+1][j-1]
+                successorTwo = self.currentBoard[i+2][j-2]
+                successorThree = self.currentBoard[i+3][j-3]
 
                 window = [origin, successorOne, successorTwo, successorThree]
                 reward += self.evaluateWindow(self, window, piece)
+
+
         #right diagonal windows
         for i in range(self.NUMBER_ROWS - 3):
             for j in range(self.NUMBER_COLS - 3):
