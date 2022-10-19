@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 
-from Algorithms.Environment import Board
+from Backend.Environment import Board
 
 class GameCanvas(Canvas):
 
@@ -84,6 +84,7 @@ class GameCanvas(Canvas):
         pass
 
     def getEval(self, e):
+        print('hello, we get here 2')
         self.drawBoard()
         self.master.update_idletasks()
         #case 1: Show messagebox for draw for games that involve players
@@ -106,6 +107,7 @@ class GameCanvas(Canvas):
         self.event_generate('<<AI-Turn>>')
     
     def generateEvaluateBoard(self):
+        print('hello, we get there')
         self.event_generate('<<Eval-Board>>')
     
     

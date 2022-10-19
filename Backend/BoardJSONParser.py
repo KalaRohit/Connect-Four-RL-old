@@ -1,7 +1,7 @@
 import json
 import os
 
-from Algorithms.Environment import Board
+from Backend.Environment import Board
 
 class Parser():
     def __init__(self, filename):

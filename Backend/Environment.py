@@ -58,15 +58,17 @@ class Board:
     def checkLeftDiagonal(self):        # issue => out of bounds will cause performance issues. TODO
         for i in range(self.NUMBER_ROWS):
             for j in range(3,self.NUMBER_COLS):
-                print(f'P1: {i,j}, P2: {i+1,j-1}, P3: {i+2, j-2}, P4: {i+3, j-3}' )
-                origin = self.currentBoard[i][j]
-                successorOne = self.currentBoard[i+1][j-1]
-                successorTwo = self.currentBoard[i+2][j-2]
-                successorThree = self.currentBoard[i+3][j-3]
+                try:
+                    origin = self.currentBoard[i][j]
+                    successorOne = self.currentBoard[i+1][j-1]
+                    successorTwo = self.currentBoard[i+2][j-2]
+                    successorThree = self.currentBoard[i+3][j-3]
 
-                if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
-                    self.winner = origin
-                    return True
+                    if origin != 0 and origin == successorOne and origin == successorTwo and origin == successorThree:
+                        self.winner = origin
+                        return True
+                except IndexError:
+                    continue
         return False   
 
     def checkRightDiagonal(self):
@@ -114,6 +116,7 @@ class Board:
         return False
     
     def boardIsFilled(self):
+        print(f'testing')
         for i in range(self.NUMBER_ROWS):
             for j in range(self.NUMBER_COLS):
                 if self.currentBoard[i][j] == self.BLANK:

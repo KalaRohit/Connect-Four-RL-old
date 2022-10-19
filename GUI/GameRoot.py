@@ -3,9 +3,9 @@ from tkinter import messagebox
 from tkinter import simpledialog
 import time
 
-from Algorithms.Environment import Board
-from Algorithms.BoardJSON import BoardJSON
-from Algorithms.BoardJSONParser import Parser
+from Backend.Environment import Board
+from Backend.BoardJSON import BoardJSON
+from Backend.BoardJSONParser import Parser
 from GUI.MainMenu import MainMenu
 from GUI.GameCanvas import GameCanvas
 from GUI.GameMenu import ConnectFourMenu
@@ -67,6 +67,9 @@ class ConnectFour(Tk):
         loadedBoard = p.parseFile()
         self.createCanvas(loadedBoard.guiCanvasType)  
         self.MainWindow.Board = loadedBoard
+        print(type(self.MainWindow))
+        self.MainWindow.generateEvaluateBoard()
+        print(self.MainWindow.canvasType)
         if self.MainWindow.Board.movesMade % 2 == 0:
             self.MainWindow.currentTurn = 'Yellow'
         else:

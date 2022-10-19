@@ -2,7 +2,7 @@ import sys
 import os, psutil
 
 from GUI.GameRoot import ConnectFour
-from Algorithms.BoardJSON import BoardJSON
+from Backend.BoardJSON import BoardJSON
 
 
 def main():
