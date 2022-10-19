@@ -69,7 +69,6 @@ class ConnectFour(Tk):
         self.MainWindow.Board = loadedBoard
         print(type(self.MainWindow))
         self.MainWindow.generateEvaluateBoard()
-        print(self.MainWindow.canvasType)
         if self.MainWindow.Board.movesMade % 2 == 0:
             self.MainWindow.currentTurn = 'Yellow'
         else:

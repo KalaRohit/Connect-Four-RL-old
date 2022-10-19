@@ -107,7 +107,6 @@ class GameCanvas(Canvas):
         self.event_generate('<<AI-Turn>>')
     
     def generateEvaluateBoard(self):
-        print('hello, we get there')
         self.event_generate('<<Eval-Board>>')
     
     
