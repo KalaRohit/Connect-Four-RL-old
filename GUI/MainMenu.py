@@ -9,12 +9,10 @@ class MainMenu(Frame):
         self.pack()
         
     def createMenu(self):
-        yellowButton = Button(self, text='Start a new game as yellow', width= 30,command=self.setUpYellowBoard).pack()
-        redButton = Button(self, width= 30, command=self.setUpRedBoard, text='Start a new game as red').pack()
-        twoNPC = Button(self, width= 30,command=self.setAIBoard, text='Spectate a game between AI').pack()
-        twoPlayer = Button(self, width= 30,text='Local Multiplayer Game', command=self.setUpMPBoard).pack()
-        trainYellow = Button(self, width= 30,text='Train Yellow Agent', command=self.setUpTrainYellowBoard).pack()
-        trainRed = Button(self, width= 30,text='Train Red Agent', command=self.setUpTrainRedBoard).pack()
+        Button(self, text='Start a new game as yellow', width= 30,command=self.setUpYellowBoard).pack()
+        Button(self, width= 30, command=self.setUpRedBoard, text='Start a new game as red').pack()
+        Button(self, width= 30,command=self.setAIBoard, text='Spectate a game between AI').pack()
+        Button(self, width= 30,text='Local Multiplayer Game', command=self.setUpMPBoard).pack()
     
     def setUpYellowBoard(self):
         self.master.createCanvas(0)

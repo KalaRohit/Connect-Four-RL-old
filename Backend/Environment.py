@@ -116,7 +116,6 @@ class Board:
         return False
     
     def boardIsFilled(self):
-        print(f'testing')
         for i in range(self.NUMBER_ROWS):
             for j in range(self.NUMBER_COLS):
                 if self.currentBoard[i][j] == self.BLANK:

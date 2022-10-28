@@ -68,7 +68,7 @@ class ConnectFour(Tk):
         self.createCanvas(loadedBoard.guiCanvasType)  
         self.MainWindow.Board = loadedBoard
         print(type(self.MainWindow))
-        self.MainWindow.generateEvaluateBoard()
+        
         if self.MainWindow.Board.movesMade % 2 == 0:
             self.MainWindow.currentTurn = 'Yellow'
         else:
@@ -76,3 +76,5 @@ class ConnectFour(Tk):
 
         self.MainWindow.drawBoard()
         self.update_idletasks()
+
+        self.MainWindow.generateEvaluateBoard()

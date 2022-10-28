@@ -84,7 +84,6 @@ class GameCanvas(Canvas):
         pass
 
     def getEval(self, e):
-        print('hello, we get here 2')
         self.drawBoard()
         self.master.update_idletasks()
         #case 1: Show messagebox for draw for games that involve players
